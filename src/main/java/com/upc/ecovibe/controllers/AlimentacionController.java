@@ -19,7 +19,6 @@ public class AlimentacionController {
     @Autowired
     private IAlimentacionService alimentacionService;
 
-    // Antes GET con param → ahora POST con body
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping("/alimentaciones/by-actividad")
     public ResponseEntity<List<AlimentacionDTO>> listarPorActividad(@RequestBody Map<String, Object> body) {
@@ -40,13 +39,5 @@ public class AlimentacionController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         alimentacionService.eliminar(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @PostMapping("/alimentaciones/delete-by-actividad")
-    public ResponseEntity<Long> eliminarPorActividad(@RequestBody Map<String, Object> body) {
-        Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
-        long eliminados = alimentacionService.eliminarPorActividad(actividadId);
-        return ResponseEntity.ok(eliminados);
     }
 }
