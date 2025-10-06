@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true", exposedHeaders = "Authorization")
+@CrossOrigin(origins = "${ip.frontend}", allowCredentials = "true", exposedHeaders = "Authorization")
 @RequestMapping("/api")
 public class TransporteController {
 
@@ -26,14 +26,6 @@ public class TransporteController {
         Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
         List<TransporteDTO> lista = transporteService.listarPorActividad(actividadId);
         return ResponseEntity.ok(lista);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
-    @PostMapping("/transportes/suma")
-    public ResponseEntity<BigDecimal> sumarDistanciaKm(@RequestBody Map<String, Object> body) {
-        Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
-        BigDecimal total = transporteService.sumarDistanciaKm(actividadId);
-        return ResponseEntity.ok(total);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
@@ -50,11 +42,4 @@ public class TransporteController {
         return ResponseEntity.noContent().build();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
-    @PostMapping("/transportes/delete-by-actividad")
-    public ResponseEntity<Long> eliminarPorActividad(@RequestBody Map<String, Object> body) {
-        Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
-        long eliminados = transporteService.eliminarPorActividad(actividadId);
-        return ResponseEntity.ok(eliminados);
-    }
 }
