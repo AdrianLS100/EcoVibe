@@ -27,7 +27,6 @@ public class EnergiaService implements IEnergiaService {
 
     @Override
     public EnergiaDTO crear(EnergiaDTO dto) {
-        // Regla PERSONAL/FAMILIAR
         rolMiembroValidator.validateMiembroRequiredOrForbidden(dto.getMiembroId());
 
         ActividadesDiarias actividad = actividadesRepo.findById(dto.getActividadId())
@@ -65,21 +64,10 @@ public class EnergiaService implements IEnergiaService {
     }
 
     @Override
-    public BigDecimal sumarConsumo(Long actividadId) {
-        BigDecimal suma = energiaRepo.sumConsumoByActividadId(actividadId);
-        return (suma != null) ? suma : BigDecimal.ZERO;
-    }
-
-    @Override
     public void eliminar(Long energiaId) {
         if (!energiaRepo.existsById(energiaId)) {
             throw new NoSuchElementException("Energía con ID " + energiaId + " no encontrada");
         }
         energiaRepo.deleteById(energiaId);
-    }
-
-    @Override
-    public long eliminarPorActividad(Long actividadId) {
-        return energiaRepo.deleteByActividad_Id(actividadId);
     }
 }
