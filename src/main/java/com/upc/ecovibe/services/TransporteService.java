@@ -63,21 +63,10 @@ public class TransporteService implements ITransporteService {
     }
 
     @Override
-    public BigDecimal sumarDistanciaKm(Long actividadId) {
-        BigDecimal suma = transporteRepo.sumDistanciaKmByActividadId(actividadId);
-        return (suma != null) ? suma : BigDecimal.ZERO;
-    }
-
-    @Override
     public void eliminar(Long transporteId) {
         if (!transporteRepo.existsById(transporteId)) {
             throw new NoSuchElementException("Transporte con ID " + transporteId + " no encontrado");
         }
         transporteRepo.deleteById(transporteId);
-    }
-
-    @Override
-    public long eliminarPorActividad(Long actividadId) {
-        return transporteRepo.deleteByActividad_Id(actividadId);
     }
 }
