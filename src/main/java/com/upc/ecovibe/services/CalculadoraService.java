@@ -1,4 +1,3 @@
-// src/main/java/com/upc/ecovibe/services/CalculadoraService.java
 package com.upc.ecovibe.services;
 
 import com.upc.ecovibe.dtos.CalculadoraFamiliarDTO;
@@ -19,8 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
-import java.util.NoSuchElementException;
 
 @Service
 public class CalculadoraService implements ICalculadoraService {
@@ -36,7 +33,7 @@ public class CalculadoraService implements ICalculadoraService {
     // Personal
     // =======================
     @Override
-    public CalculadoraPersonalDTO estimar(CalculadoraPersonalDTO request) {
+    public CalculadoraPersonalDTO calcularp(CalculadoraPersonalDTO request) {
         BigDecimal total = BigDecimal.ZERO;
 
         if (request.getHorasBusSemana() != null) {
@@ -56,29 +53,11 @@ public class CalculadoraService implements ICalculadoraService {
         return request;
     }
 
-    @Override
-    public Long guardarComoRegistroDiario(Long usuarioId, CalculadoraPersonalDTO request) {
-        User usuario = userRepo.findById(usuarioId)
-                .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado " + usuarioId));
-
-        ActividadesDiarias actividad = actividadesRepo
-                .findByUsuario_IdAndFecha(usuarioId, LocalDate.now())
-                .orElseGet(() -> {
-                    ActividadesDiarias nueva = new ActividadesDiarias();
-                    nueva.setUsuario(usuario);
-                    nueva.setFecha(LocalDate.now());
-                    nueva.setDescripcion("Registro calculadora personal");
-                    return actividadesRepo.save(nueva);
-                });
-
-        return actividad.getId();
-    }
-
     // =======================
     // Familiar
     // =======================
     @Override
-    public CalculadoraFamiliarDTO estimar(CalculadoraFamiliarDTO request) {
+    public CalculadoraFamiliarDTO calcularf(CalculadoraFamiliarDTO request) {
         BigDecimal total = BigDecimal.ZERO;
 
         if (request.getKwhMes() != null) {
@@ -98,29 +77,11 @@ public class CalculadoraService implements ICalculadoraService {
         return request;
     }
 
-    @Override
-    public Long guardarComoRegistroDiario(Long usuarioId, CalculadoraFamiliarDTO request) {
-        User usuario = userRepo.findById(usuarioId)
-                .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado " + usuarioId));
-
-        ActividadesDiarias actividad = actividadesRepo
-                .findByUsuario_IdAndFecha(usuarioId, LocalDate.now())
-                .orElseGet(() -> {
-                    ActividadesDiarias nueva = new ActividadesDiarias();
-                    nueva.setUsuario(usuario);
-                    nueva.setFecha(LocalDate.now());
-                    nueva.setDescripcion("Registro calculadora familiar");
-                    return actividadesRepo.save(nueva);
-                });
-
-        return actividad.getId();
-    }
-
     // =======================
     // Institución
     // =======================
     @Override
-    public CalculadoraInstitucionDTO estimar(CalculadoraInstitucionDTO req) {
+    public CalculadoraInstitucionDTO calculari(CalculadoraInstitucionDTO req) {
 
         BigDecimal kwhMes = nz(req.getKwhMes());
         BigDecimal glpKg  = nz(req.getGlpKg());
