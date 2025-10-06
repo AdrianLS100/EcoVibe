@@ -29,15 +29,6 @@ public class CalculadoraController {
         return ResponseEntity.ok(resp);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('PERSONAL')")
-    @PostMapping("/calculadora/personal/guardar")
-    public ResponseEntity<Long> guardarPersonalComoRegistro(
-            @RequestBody @NotNull Long usuarioId,
-            @Valid @RequestBody CalculadoraPersonalDTO request) {
-        Long actividadId = calculadoraService.guardarComoRegistroDiario(usuarioId, request);
-        return ResponseEntity.ok(actividadId);
-    }
-
     // =========================
     // FAMILIAR
     // =========================
@@ -48,15 +39,6 @@ public class CalculadoraController {
             @Valid @RequestBody CalculadoraFamiliarDTO request) {
         CalculadoraFamiliarDTO resp = calculadoraService.estimar(request);
         return ResponseEntity.ok(resp);
-    }
-
-    @PreAuthorize("hasRole('ADMIN') or hasRole('FAMILIAR')")
-    @PostMapping("/calculadora/familiar/guardar")
-    public ResponseEntity<Long> guardarFamiliarComoRegistro(
-            @RequestParam @NotNull Long usuarioId,
-            @Valid @RequestBody CalculadoraFamiliarDTO request) {
-        Long actividadId = calculadoraService.guardarComoRegistroDiario(usuarioId, request);
-        return ResponseEntity.ok(actividadId);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('INSTITUCION')")
