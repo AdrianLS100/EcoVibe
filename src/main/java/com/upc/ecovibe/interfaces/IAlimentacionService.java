@@ -10,6 +10,4 @@ public interface IAlimentacionService {
     List<AlimentacionDTO> listarPorActividad(Long actividadId);
 
     void eliminar(Long alimentacionId);
-
-    long eliminarPorActividad(Long actividadId);
 }
