@@ -5,7 +5,6 @@ import com.upc.ecovibe.dtos.CalculadoraPersonalDTO;
 import com.upc.ecovibe.dtos.CalculadoraFamiliarDTO;
 import com.upc.ecovibe.interfaces.ICalculadoraService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,12 +19,11 @@ public class CalculadoraController {
     private ICalculadoraService calculadoraService;
     // PERSONAL
 
-    // Estimar (no persiste): POST /api/calculadora/personal/estimar
     @PreAuthorize("hasRole('ADMIN') or hasRole('PERSONAL')")
     @PostMapping("/calculadora/personal/estimar")
     public ResponseEntity<CalculadoraPersonalDTO> estimarPersonal(
             @Valid @RequestBody CalculadoraPersonalDTO request) {
-        CalculadoraPersonalDTO resp = calculadoraService.estimar(request);
+        CalculadoraPersonalDTO resp = calculadoraService.calcularp(request);
         return ResponseEntity.ok(resp);
     }
 
@@ -37,7 +35,7 @@ public class CalculadoraController {
     @PostMapping("/calculadora/familiar/estimar")
     public ResponseEntity<CalculadoraFamiliarDTO> estimarFamiliar(
             @Valid @RequestBody CalculadoraFamiliarDTO request) {
-        CalculadoraFamiliarDTO resp = calculadoraService.estimar(request);
+        CalculadoraFamiliarDTO resp = calculadoraService.calcularf(request);
         return ResponseEntity.ok(resp);
     }
 
@@ -45,7 +43,7 @@ public class CalculadoraController {
     @PostMapping("/calculadora/institucion/estimar")
     public ResponseEntity<CalculadoraInstitucionDTO> estimarInstitucion(
             @Valid @RequestBody CalculadoraInstitucionDTO request) {
-        var resp = calculadoraService.estimar(request);
+        var resp = calculadoraService.calculari(request);
         return ResponseEntity.ok(resp);
     }
 }
