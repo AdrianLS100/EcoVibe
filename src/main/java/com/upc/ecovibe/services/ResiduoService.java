@@ -27,7 +27,6 @@ public class ResiduoService implements IResiduoService {
 
     @Override
     public ResiduoDTO crear(ResiduoDTO dto) {
-        // Regla PERSONAL/FAMILIAR
         rolMiembroValidator.validateMiembroRequiredOrForbidden(dto.getMiembroId());
 
         ActividadesDiarias actividad = actividadesRepo.findById(dto.getActividadId())
@@ -65,21 +64,10 @@ public class ResiduoService implements IResiduoService {
     }
 
     @Override
-    public BigDecimal sumarPesoKg(Long actividadId) {
-        BigDecimal suma = residuoRepo.sumPesoKgByActividadId(actividadId);
-        return (suma != null) ? suma : BigDecimal.ZERO;
-    }
-
-    @Override
     public void eliminar(Long residuoId) {
         if (!residuoRepo.existsById(residuoId)) {
             throw new NoSuchElementException("Residuo con ID " + residuoId + " no encontrado");
         }
         residuoRepo.deleteById(residuoId);
-    }
-
-    @Override
-    public long eliminarPorActividad(Long actividadId) {
-        return residuoRepo.deleteByActividad_Id(actividadId);
     }
 }
