@@ -33,9 +33,11 @@ public class User {
     @Column(nullable = false)
     private Boolean emailverificado = false;
 
+    @JsonIgnore
     @Column
     private String resetToken;
 
+    @JsonIgnore
     @Column
     private java.time.Instant resetExpiresAt;
 
