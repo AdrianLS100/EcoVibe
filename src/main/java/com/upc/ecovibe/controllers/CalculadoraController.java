@@ -21,7 +21,7 @@ public class CalculadoraController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('PERSONAL')")
     @PostMapping("/calculadora/personal/estimar")
-    public ResponseEntity<CalculadoraPersonalDTO> estimarPersonal(
+    public ResponseEntity<CalculadoraPersonalDTO> calcularPersonal(
             @Valid @RequestBody CalculadoraPersonalDTO request) {
         CalculadoraPersonalDTO resp = calculadoraService.calcularp(request);
         return ResponseEntity.ok(resp);
@@ -33,7 +33,7 @@ public class CalculadoraController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('FAMILIAR')")
     @PostMapping("/calculadora/familiar/estimar")
-    public ResponseEntity<CalculadoraFamiliarDTO> estimarFamiliar(
+    public ResponseEntity<CalculadoraFamiliarDTO> calcularFamiliar(
             @Valid @RequestBody CalculadoraFamiliarDTO request) {
         CalculadoraFamiliarDTO resp = calculadoraService.calcularf(request);
         return ResponseEntity.ok(resp);
@@ -41,7 +41,7 @@ public class CalculadoraController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('INSTITUCION')")
     @PostMapping("/calculadora/institucion/estimar")
-    public ResponseEntity<CalculadoraInstitucionDTO> estimarInstitucion(
+    public ResponseEntity<CalculadoraInstitucionDTO> calcularInstitucion(
             @Valid @RequestBody CalculadoraInstitucionDTO request) {
         var resp = calculadoraService.calculari(request);
         return ResponseEntity.ok(resp);
