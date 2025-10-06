@@ -20,21 +20,12 @@ public class EnergiaController {
     @Autowired
     private IEnergiaService energiaService;
 
-    // Antes GET con param → ahora POST con body
     @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
     @PostMapping("/energias/by-actividad")
     public ResponseEntity<List<EnergiaDTO>> listarPorActividad(@RequestBody Map<String, Object> body) {
         Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
         List<EnergiaDTO> lista = energiaService.listarPorActividad(actividadId);
         return ResponseEntity.ok(lista);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
-    @PostMapping("/energias/suma")
-    public ResponseEntity<BigDecimal> sumarConsumo(@RequestBody Map<String, Object> body) {
-        Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
-        BigDecimal total = energiaService.sumarConsumo(actividadId);
-        return ResponseEntity.ok(total);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
@@ -49,13 +40,5 @@ public class EnergiaController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         energiaService.eliminar(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
-    @PostMapping("/energias/delete-by-actividad")
-    public ResponseEntity<Long> eliminarPorActividad(@RequestBody Map<String, Object> body) {
-        Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
-        long eliminados = energiaService.eliminarPorActividad(actividadId);
-        return ResponseEntity.ok(eliminados);
     }
 }
