@@ -14,8 +14,6 @@ public interface AlimentacionRepository extends JpaRepository<Alimentacion, Long
 
     Optional<Alimentacion> findTopByActividad_IdOrderByIdDesc(Long actividadId);
 
-    long deleteByActividad_Id(Long actividadId);
-
     @Query("""
        select lower(a.tipoDieta), count(a)
        from Alimentacion a
