@@ -29,14 +29,6 @@ public class ResiduoController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
-    @PostMapping("/residuos/suma")
-    public ResponseEntity<BigDecimal> sumarPesoKg(@RequestBody Map<String, Object> body) {
-        Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
-        BigDecimal total = residuoService.sumarPesoKg(actividadId);
-        return ResponseEntity.ok(total);
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
     @PostMapping("/residuo")
     public ResponseEntity<ResiduoDTO> crear(@Valid @RequestBody ResiduoDTO dto) {
         ResiduoDTO creado = residuoService.crear(dto);
@@ -48,13 +40,5 @@ public class ResiduoController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         residuoService.eliminar(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER','FAMILIAR')")
-    @PostMapping("/residuos/delete-by-actividad")
-    public ResponseEntity<Long> eliminarPorActividad(@RequestBody Map<String, Object> body) {
-        Long actividadId = Long.valueOf(String.valueOf(body.get("actividadId")));
-        long eliminados = residuoService.eliminarPorActividad(actividadId);
-        return ResponseEntity.ok(eliminados);
     }
 }
