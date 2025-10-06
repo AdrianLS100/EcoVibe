@@ -70,9 +70,4 @@ public class AlimentacionService implements IAlimentacionService {
         }
         alimentacionRepo.deleteById(alimentacionId);
     }
-
-    @Override
-    public long eliminarPorActividad(Long actividadId) {
-        return alimentacionRepo.deleteByActividad_Id(actividadId);
-    }
 }
