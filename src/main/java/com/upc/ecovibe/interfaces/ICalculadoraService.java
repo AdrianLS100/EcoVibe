@@ -6,12 +6,9 @@ import com.upc.ecovibe.dtos.CalculadoraFamiliarDTO;
 
 public interface ICalculadoraService {
 
-    CalculadoraPersonalDTO estimar(CalculadoraPersonalDTO request);
-    Long guardarComoRegistroDiario(Long usuarioId, CalculadoraPersonalDTO request);
-
+    CalculadoraPersonalDTO calcularp(CalculadoraPersonalDTO request);
     // Familiar
-    CalculadoraFamiliarDTO estimar(CalculadoraFamiliarDTO request);
-    Long guardarComoRegistroDiario(Long usuarioId, CalculadoraFamiliarDTO request);
+    CalculadoraFamiliarDTO calcularf(CalculadoraFamiliarDTO request);
 
-    CalculadoraInstitucionDTO estimar(CalculadoraInstitucionDTO request);
+    CalculadoraInstitucionDTO calculari(CalculadoraInstitucionDTO request);
 }
